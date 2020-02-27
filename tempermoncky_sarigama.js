@@ -47,7 +47,7 @@
             });
         });
         $('#play').click(function () {
-
+            $('#play').attr('disabled', true);
             var post = $.post('https://sarigama.lk/playlists/save', {
                 '_token': $('meta[name="csrf-token"]').attr('content'),
                 'name': $('.page-title').children('h1').html()
@@ -66,6 +66,7 @@
                     }
                 });
             });
+            $('#play').attr('disabled', false);
         });
     } else {
         console.log('User not logged in');
@@ -78,6 +79,8 @@
             if ($('#chooseOption').val() == "2" && elm.parent().siblings('input').is(':checked') == false) {
                 elm.css('background', '#ffa4a4');
                 console.log('Song id: ' + s[s.length - 1] + ' --> false (Skiped by user)');
+                index = index + 1;
+                addSongsAndPlay(songs, index, id);
                 return;
             }
             $.get('https://sarigama.lk/playlist/storesong/' + id + '/' + s[s.length - 1], function (data) {
