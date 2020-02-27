@@ -75,7 +75,7 @@
         var elm = songs.eq(index);
         if (songs.length > index) {
             var s = elm.attr('href').split('/');
-            if ($('#chooseOption').val() == "2" && index.parent().siblings('input').is(':checked') == false) {
+            if ($('#chooseOption').val() == "2" && elm.parent().siblings('input').is(':checked') == false) {
                 elm.css('background', '#ffa4a4');
                 console.log('Song id: ' + s[s.length - 1] + ' --> false (Skiped by user)');
                 return;
