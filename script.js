@@ -61,3 +61,29 @@ if (typeof jQuery == 'undefined' || jQuery.fn.jquery != '3.3.1') {
 } else {
 	downloadFile(window.location.href);
 }
+
+
+
+//------------------------------seedr link genarate script------------------------------------//
+
+  $('div[folder_file_id]').each(function () {
+        $.post("https://www.seedr.cc/content.php?action=fetch_file", {folder_file_id: $(this).attr('folder_file_id').toString()}, function (data) {
+            console.log(data.url);
+        });
+    })
+
+//------------------------------pcloud upload script------------------------------------//
+
+var a = $('textarea[name="upload"]').val()
+    var b = a.split("\n");
+    $.each(b, function (i, v) {
+        $.post("https://api7.pcloud.com/downloadfile", {
+            folderid: 0,
+            progresshash: 'upload-16152850-xhr-359',
+            nopartial: 1,
+            url: v,
+            auth: '5QS5hkZIopH7ZrTaYUpD75fpThAl1ztrLqhxwiGtk'
+        }, function (data) {
+            console.log(data);
+        });
+    })
