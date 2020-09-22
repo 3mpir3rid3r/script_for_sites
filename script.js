@@ -64,11 +64,17 @@ if (typeof jQuery == 'undefined' || jQuery.fn.jquery != '3.3.1') {
 
 
 
-//------------------------------seedr link genarate script------------------------------------//
-
+//------------------------------seedr link genarate for file------------------------------------//
   $('div[folder_file_id]').each(function () {
         $.post("https://www.seedr.cc/content.php?action=fetch_file", {folder_file_id: $(this).attr('folder_file_id').toString()}, function (data) {
             console.log(data.url);
+        });
+    })
+
+//------------------------------seedr link genarate for folder------------------------------------//
+  $('div[folder_id]').each(function () {
+        $.post("https://www.seedr.cc/content.php?action=create_empty_archive", {folder_id: 4565362,archive_arr: {type:"folder",id:$(this).attr('folder_id').toString()}}, function (data) {
+            console.log(data.archive_url);
         });
     })
 
