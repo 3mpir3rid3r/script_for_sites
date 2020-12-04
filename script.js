@@ -80,7 +80,21 @@ if (typeof jQuery == 'undefined' || jQuery.fn.jquery != '3.3.1') {
 
 //------------------------------pcloud upload script------------------------------------//
 
-var a = $('textarea[name="upload"]').val()
+function addFiles() {
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    let auth = readCookie("pcauth");
+    var a = $('textarea[name="upload"]').val()
     var b = a.split("\n");
     $.each(b, function (i, v) {
         $.post("https://api7.pcloud.com/downloadfile", {
@@ -88,8 +102,12 @@ var a = $('textarea[name="upload"]').val()
             progresshash: 'upload-16152850-xhr-359',
             nopartial: 1,
             url: v,
-            auth: '5QS5hkZIopH7ZrTaYUpD75fpThAl1ztrLqhxwiGtk'
+            auth: auth
         }, function (data) {
             console.log(data);
         });
     })
+
+}
+
+addFiles();
