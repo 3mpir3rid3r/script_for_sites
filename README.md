@@ -1,3 +1,3 @@
 # script_for_sites
 
-scripts for doing boring things automate in some web site.
+scripts for automate boring things in some web site.
