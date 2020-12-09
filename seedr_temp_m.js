@@ -6,34 +6,14 @@
 // @author       You
 // @match        *://www.seedr.cc/*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js
-// @require      https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js
-// @require      https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.6/sweetalert2.min.js
-// @resource     SweetAlert2CSS https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.6/sweetalert2.min.css
+// @require      https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.12.3/sweetalert2.min.js
+// @resource     SweetAlert2CSS https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.12.3/sweetalert2.min.css
 // @grant        GM_addStyle
 // @grant        GM_getResourceText
 // ==/UserScript==
 
 (function() {
     'use strict';
-    
-    $(document).on('click','#links',function(){
-        swalWithBootstrapButtons.fire({
-            text: "Select what you need!",
-            showCancelButton: true,
-            confirmButtonText: 'For All Folder',
-            cancelButtonText: 'For All Files',
-            focusConfirm: false
-        }).then((result) => {
-            if (result.isConfirmed) {
-                getFoldersLinks();
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                getFilesLinks();
-            }
-        });
-    });
-    
-    $('#add-folder-button').parent('div').prepend('<button  id="links"  style="float:right;padding: 5px;    float: right;    display: block;    line-height: 12px;    margin-right: 35px;    background: none;    color: black;    outline: none;" class="radius"><i class="fa fa-copy"></i> Get Links</button>');
-
     GM_getResourceText('SweetAlert2CSS');
     GM_addStyle(' .mr-3{margin-right: 3em;} .br{border-radius: 10px; padding: 3px 17px !important;} .swal2-actions{ margin: 0 !important;} ');
 
@@ -99,4 +79,23 @@
             });
         });
     }
+
+    $(document).on('click','#links',function(){
+        swalWithBootstrapButtons.fire({
+            text: "Select what you need!",
+            showCancelButton: true,
+            confirmButtonText: 'For All Folder',
+            cancelButtonText: 'For All Files',
+            focusConfirm: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                getFoldersLinks();
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                getFilesLinks();
+            }
+        });
+    });
+
+    $('#add-folder-button').parent('div').prepend('<button  id="links"  style="float:right;padding: 5px;    float: right;    display: block;    line-height: 12px;    margin-right: 35px;    background: none;    color: black;    outline: none;" class="radius"><i class="fa fa-copy"></i> Get Links</button>');
+
 })();
