@@ -5,13 +5,18 @@
 // @description  try to take over the world!
 // @author       You
 // @match        *://www.seedr.cc/*
-// @require      https://cdn.jsdelivr.net/npm/sweetalert2@10
+// @require      https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js
+// @require      https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js
+// @require      https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.6/sweetalert2.min.js
+// @resource     SweetAlert2CSS https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.6/sweetalert2.min.css
 // @grant        GM_addStyle
+// @grant        GM_getResourceText
 // ==/UserScript==
 
 (function() {
     'use strict';
-    GM_addStyle(`.mr-3{margin-right: 3em;} .br{border-radius: 10px;}`);
+
+    GM_addStyle(` ${GM_getResourceText('SweetAlert2CSS')}  .mr-3{margin-right: 3em;} .br{border-radius: 10px; padding: 3px 17px !important;} .swal2-actions{ margin: 0 !important;} `);
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-info mr-3 br',
@@ -23,15 +28,12 @@
     function viewLinks(data){
         swalWithBootstrapButtons.fire({
             text: 'Yore links is here.you can copy it.',
-            input: 'textarea',
-            inputAttributes: {
-                autocapitalize: 'off'
-            },
-            inputValue: data,
+            width: 1000,
+            html: '<span>Yore links is here.you can copy it.</span><br><textarea id="swal-input1" class="swal2-input" style=" height: 250px; ">'+data+'</textarea>',
             confirmButtonText: 'Ok',
             onOpen: function() {
-                var input = swal.getInput()
-                input.setSelectionRange(0, input.value.length)
+                var input = $('#swal-input1');
+                input.select();
             }
         });
     }
