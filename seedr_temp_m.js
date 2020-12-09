@@ -16,7 +16,11 @@
 (function() {
     'use strict';
 
-    GM_addStyle(` ${GM_getResourceText('SweetAlert2CSS')}  .mr-3{margin-right: 3em;} .br{border-radius: 10px; padding: 3px 17px !important;} .swal2-actions{ margin: 0 !important;} `);
+    $('#add-folder-button').parent('div').prepend('<button  id="links"  style="float:right;padding: 5px;    float: right;    display: block;    line-height: 12px;    margin-right: 35px;    background: none;    color: black;    outline: none;" class="radius"><i class="fa fa-copy"></i> Get Links</button>');
+
+    GM_getResourceText('SweetAlert2CSS');
+    GM_addStyle(' .mr-3{margin-right: 3em;} .br{border-radius: 10px; padding: 3px 17px !important;} .swal2-actions{ margin: 0 !important;} ');
+
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-info mr-3 br',
@@ -95,7 +99,4 @@
             }
         });
     });
-
-    $('#add-folder-button').parent('div').prepend('<button  id="links"  style="float:right;padding: 5px;    float: right;    display: block;    line-height: 12px;    margin-right: 35px;    background: none;    color: black;    outline: none;" class="radius"><i class="fa fa-copy"></i> Get Links</button>');
-
 })();
