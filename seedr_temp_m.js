@@ -15,7 +15,23 @@
 
 (function() {
     'use strict';
-
+    
+    $(document).on('click','#links',function(){
+        swalWithBootstrapButtons.fire({
+            text: "Select what you need!",
+            showCancelButton: true,
+            confirmButtonText: 'For All Folder',
+            cancelButtonText: 'For All Files',
+            focusConfirm: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                getFoldersLinks();
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                getFilesLinks();
+            }
+        });
+    });
+    
     $('#add-folder-button').parent('div').prepend('<button  id="links"  style="float:right;padding: 5px;    float: right;    display: block;    line-height: 12px;    margin-right: 35px;    background: none;    color: black;    outline: none;" class="radius"><i class="fa fa-copy"></i> Get Links</button>');
 
     GM_getResourceText('SweetAlert2CSS');
@@ -83,20 +99,4 @@
             });
         });
     }
-
-    $(document).on('click','#links',function(){
-        swalWithBootstrapButtons.fire({
-            text: "Select what you need!",
-            showCancelButton: true,
-            confirmButtonText: 'For All Folder',
-            cancelButtonText: 'For All Files',
-            focusConfirm: false
-        }).then((result) => {
-            if (result.isConfirmed) {
-                getFoldersLinks();
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                getFilesLinks();
-            }
-        });
-    });
 })();
