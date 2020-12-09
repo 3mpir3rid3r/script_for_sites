@@ -22,7 +22,7 @@
 
     function viewLinks(data){
         swalWithBootstrapButtons.fire({
-            text: 'paste your links here.line breack consider as new link.',
+            text: 'Yore links is here.you can copy it.',
             input: 'textarea',
             inputAttributes: {
                 autocapitalize: 'off'
