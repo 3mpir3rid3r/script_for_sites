@@ -65,7 +65,7 @@
                                     auth: auth
                                 }).done(function (data) {
                                     console.log(data);
-                                    if (data.result !== 4001) {
+                                    if (data.result === 0) {
                                         var count = Swal.getContent().textContent;
                                         var currentCount = parseInt((count.split("/")[0] === 'Processing..') ? 0 : count.split("/")[0]);
                                         if ((currentCount + 1) == b.length) {
