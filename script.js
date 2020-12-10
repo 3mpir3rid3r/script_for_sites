@@ -72,8 +72,8 @@ if (typeof jQuery == 'undefined' || jQuery.fn.jquery != '3.3.1') {
     })
 
 //------------------------------seedr link genarate for folder------------------------------------//
-  $('div[folder_id]').each(function () {
-        $.post("https://www.seedr.cc/content.php?action=create_empty_archive", {folder_id: 4565362,archive_arr: {type:"folder",id:$(this).attr('folder_id').toString()}}, function (data) {
+  $('div[folder_id][folder_id!="-1"]').each(function () {
+        $.post("https://www.seedr.cc/content.php?action=create_empty_archive", {folder_id: 4565362,archive_arr: '[{"type":"folder","id":'+$(this).attr('folder_id').toString()+'}]'}, function (data) {
             console.log(data.archive_url);
         });
     })
