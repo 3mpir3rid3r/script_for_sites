@@ -23,6 +23,12 @@
         return null;
     }
 
+    function randomNumber() {
+        var val = Math.floor(Math.random() * (19 - 6 + 1) + 6);
+        val = (val === 13) ? randomNumber() : val;
+        return val;
+    }
+
     $(document).on('click', '#link', function () {
         Swal.fire({
             title: 'paste links',
@@ -41,31 +47,46 @@
                     var b = result.value.split("\n");
 
                     Swal.fire({
-                        title: 'Uploading',
-                        text: '0/' + b.length
+                        title: 'Uploading..',
+                        text: 'Processing..'
                     })
                     Swal.showLoading();
 
-
+                    var count = 0;
+                    var flag = true;
                     $.each(b, function (i, v) {
-                        $.post("https://api7.pcloud.com/downloadfile", {
-                            folderid: 0,
-                            progresshash: 'upload-16152850-xhr-359',
-                            nopartial: 1,
-                            url: v,
-                            auth: auth
-                        }).done(function (data) {
-                            var count = Swal.getContent().textContent;
-                            var currentCount = parseInt(count.split("/")[0]);
-                            if ((currentCount + 1) == b.length) {
-                                Swal.getTitle().textContent = 'Done.'
-                                Swal.getContent().textContent = (currentCount + 1) + "/" + b.length;
-                                Swal.hideLoading()
-                            } else {
-                                Swal.getContent().textContent = (currentCount + 1) + "/" + b.length;
-                            }
+                        setTimeout(function () {
+                            if (flag) {
+                                $.post("https://api" + randomNumber() + ".pcloud.com/downloadfile", {
+                                    folderid: 0,
+                                    progresshash: 'upload-16152850-xhr-359',
+                                    nopartial: 1,
+                                    url: v,
+                                    auth: auth
+                                }).done(function (data) {
+                                    console.log(data);
+                                    if (data.result !== 4001) {
+                                        var count = Swal.getContent().textContent;
+                                        var currentCount = parseInt((count.split("/")[0] === 'Processing..') ? 0 : count.split("/")[0]);
+                                        if ((currentCount + 1) == b.length) {
+                                            Swal.getTitle().textContent = 'Done.'
+                                            Swal.getContent().textContent = (currentCount + 1) + "/" + b.length;
+                                            Swal.hideLoading();
+                                        } else {
+                                            Swal.getContent().textContent = (currentCount + 1) + "/" + b.length;
+                                        }
+                                    } else {
+                                        Swal.getTitle().textContent = 'Faild.'
+                                        Swal.getContent().textContent = data.error;
+                                        Swal.hideLoading();
+                                        flag = false;
+                                    }
 
-                        });
+                                });
+                            }
+                        }, count * 4000);
+                        count++;
+                        console.log(flag);
                     })
                 }
             }
