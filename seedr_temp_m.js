@@ -29,13 +29,30 @@
         swalWithBootstrapButtons.fire({
             text: 'Yore links is here.you can copy it.',
             width: 1250,
+            showCancelButton: true,
             html: '<span>Yore links is here.you can copy it.</span><br><textarea id="swal-input1" class="swal2-input" style=" height: 250px; font-size: 15px; ">'+data+'</textarea>',
-            confirmButtonText: 'Ok',
-            onOpen: function() {
+            confirmButtonText: 'Copy',
+            allowOutsideClick: false,
+            onOpen: function(el) {
                 var input = $('#swal-input1');
                 input.select();
                 input.prop('readonly', true);
-            }
+
+                var container = $(el);
+                var originalConfirmButton = container.find('.swal2-confirm');
+                var clonedConfirmButton = originalConfirmButton.clone();
+
+                originalConfirmButton.hide();
+                clonedConfirmButton.insertAfter(originalConfirmButton);
+
+                clonedConfirmButton.on('click', function() {
+                    var input = $('#swal-input1');
+                    input.select();
+                    input.prop('readonly', true);
+                    document.execCommand("copy")
+                });
+            },
+
         });
     }
 
