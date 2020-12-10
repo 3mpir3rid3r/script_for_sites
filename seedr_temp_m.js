@@ -28,12 +28,13 @@
     function viewLinks(data){
         swalWithBootstrapButtons.fire({
             text: 'Yore links is here.you can copy it.',
-            width: 1000,
-            html: '<span>Yore links is here.you can copy it.</span><br><textarea id="swal-input1" class="swal2-input" style=" height: 250px; ">'+data+'</textarea>',
+            width: 1250,
+            html: '<span>Yore links is here.you can copy it.</span><br><textarea id="swal-input1" class="swal2-input" style=" height: 250px; font-size: 15px; ">'+data+'</textarea>',
             confirmButtonText: 'Ok',
             onOpen: function() {
                 var input = $('#swal-input1');
                 input.select();
+                input.prop('readonly', true);
             }
         });
     }
@@ -45,9 +46,7 @@
         $.each(list,function () {
             $.post("https://www.seedr.cc/content.php?action=create_empty_archive", {
                 folder_id: 4565362,
-                archive_arr: {
-                    type:"folder",id:$(this).attr('folder_id').toString()
-                }
+                archive_arr:'[{"type":"folder","id":'+$(this).attr('folder_id').toString()+'}]'
             }).done(function (data) {
                 if ((count + 1) == list.length) {
                     links = links + data.archive_url+'\n'
