@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         pcloud uploader
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.1
 // @description  try to take over the world!
 // @author       You
 // @match        https://my.pcloud.com/*
