@@ -1,5 +1,3 @@
-
-
 var wordList = ['ඒක ලස්සනයි', 'හොදට ලියල තියනවා', 'පට්ට', 'ජයවේවා', 'eekagathi', 'Lassanayi nangi', 'හරිම ලස්සනයි නිර්මාණය', 'ft', 'lassnai sis', 'මරූඌඌඌඌඌ', 'thawa liyanna', 'suba pathum', 'ගති ආආ', 'සුන්දරයි', 'ආශ්වාදනීයයි', 'nice', 'Amazing', 'lassanai'];
 var emojiList = ['😍', '😘', '😋', '😗', '😙', '😚', '😲', '🤗', '😃', '😊', '👍', '💯', '😮', '😯', '😲', '😵', '😱', '👌', '🙌', '🏆', '🏅', '😀', '😻', '🙈', '😽'];
 
@@ -33,14 +31,25 @@ setTimeout(function () {
     }
 
     if (activeEmoji == 1 && leadEmoji == 1) {
-        text = ' ' + text + ' ' + emojiList[randomNumber(0, emojiList.length - 1)];
+        var times = randomNumber(1, 6);
+        var emoji = emojiList[randomNumber(0, emojiList.length - 1)];
+        for (var x = 0; x <= times; x++) {
+            text = text + emoji;
+        }
     }
 
     if (activeText == 1) {
-        text = ' ' + text + ' ' + wordList[randomNumber(0, wordList.length - 1)];
+        text = ' ' + text + ' ' + wordList[randomNumber(0, wordList.length - 1)] + ' ';
     }
 
     if (activeEmoji == 1 && endEmoji == 1) {
+
+        var times = randomNumber(1, 6);
+        var emoji = emojiList[randomNumber(0, emojiList.length - 1)];
+        for (var x = 0; x <= times; x++) {
+            text = text + emoji;
+        }
+
         text = ' ' + text + ' ' + emojiList[randomNumber(0, emojiList.length - 1)];
     }
     document.querySelector("input[name='comment_text']").value = text;
