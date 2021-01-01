@@ -1,34 +1,43 @@
 // ==UserScript==
-// @name         New Userscript
+// @name         Baiscope download
 // @namespace    http://tampermonkey.net/
 // @version      0.1
 // @description  try to take over the world!
 // @author       You
-// @match        https://www.baiscopelk.com/breaking-bad-*/
+// @match        https://www.baiscopelk.com/*
 // @grant        none
 // @require http://code.jquery.com/jquery-3.3.1.min.js
 // ==/UserScript==
 
-function _x(STR_XPATH) {
-    var xresult = document.evaluate(STR_XPATH, document, null, XPathResult.ANY_TYPE, null);
-    var xnodes = [];
-    var xres;
-    while (xres = xresult.iterateNext()) {
-        xnodes.push(xres);
-    }
-
-    return xnodes;
-}
-
 (function() {
     'use strict';
 
-    var href=$(_x('/html/body/div[1]/div[2]/div/div[4]/div[1]/article/div/div[2]/div[2]/div[1]/p[1]/a[2]')).attr('href');
+    const $ = jQuery.noConflict( true );
 
-    window.open(href);
+    var href=$('img.wp-image-13794').parent('a').attr('href');
 
-    var next=$(_x('/html/body/div[1]/div[2]/div/div[4]/div[1]/article/div/div[2]/div[2]/p[6]/a/img')).parent().attr('href');
+    if(href){
+        window.open(href);
 
-    window.location=next;
+        var next=$('img.wp-image-60645,img.wp-image-60684' ).parent('a').attr('href');
+
+        if(next){
+            window.location=next;
+        }else{
+            var spans =  $('span[data-mce-mark]');
+            var anchor = spans.filter(":contains('Next Episode >>')");
+            var next = anchor.parent('a').attr('href');
+            if(next){
+                window.location=next;
+            }else{
+                var anchors =  $('a[target="_blank"]');
+                var anchor = anchors.filter(":contains('Next Episode >>')");
+                var next = anchor.parent('a').attr('href');
+                if(next){
+                    window.location=next;
+                }
+            }
+        }
+    }
 
 })();
