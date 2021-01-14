@@ -6,7 +6,7 @@
 // @author       You
 // @match        https://www.baiscopelk.com/*
 // @grant        none
-// @require http://code.jquery.com/jquery-3.3.1.min.js
+// @require      http://code.jquery.com/jquery-3.3.1.min.js
 // ==/UserScript==
 
 (function() {
@@ -19,22 +19,38 @@
     if(href){
         window.open(href);
 
+
+        $.extend($.expr[':'], {
+            'containsi': function(elem, i, match, array)
+            {
+                return (elem.textContent || elem.innerText || '').toLowerCase()
+                    .indexOf((match[3] || "").toLowerCase()) >= 0;
+            }
+        });
+
         var next=$('img.wp-image-60645,img.wp-image-60684' ).parent('a').attr('href');
 
         if(next){
             window.location=next;
         }else{
             var spans =  $('span[data-mce-mark]');
-            var anchor = spans.filter(":contains('Next Episode >>')");
+            var anchor = spans.filter(":contains('Next episode')");
             var next = anchor.parent('a').attr('href');
             if(next){
                 window.location=next;
             }else{
                 var anchors =  $('a[target="_blank"]');
-                var anchor = anchors.filter(":contains('Next Episode >>')");
+                var anchor = anchors.filter(":containsi('Next Episode >>')");
                 var next = anchor.parent('a').attr('href');
                 if(next){
                     window.location=next;
+                }else{
+                    var anchors =  $('a[target="_blank"]');
+                    var anchor = anchors.filter(":containsi('Next Episode >>')");
+                    var next = anchor.attr('href');
+                    if(next){
+                        window.location=next;
+                    }
                 }
             }
         }
