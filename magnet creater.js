@@ -71,7 +71,6 @@
         "udp://tracker.grepler.com:6969/announce",
         "udp://tracker.flashtorrents.org:6969/announce",
         "udp://tracker.yoshi210.com:6969/announce",
-        "udp://tracker.tiny-vps.com:6969/announce",
         "udp://tracker.internetwarriors.net:1337/announce",
         "udp://mgtracker.org:2710/announce",
         "http://tracker.yoshi210.com:6969/announce",
@@ -88,10 +87,8 @@
         "http://thetracker.org:80/announce",
         "http://tracker.bittor.pw:1337/announce",
         "udp://tracker.kicks-ass.net:80/announce",
-        "udp://tracker.aletorrenty.pl:2710/announce",
         "http://tracker.aletorrenty.pl:2710/announce",
         "http://tracker.bittorrent.am/announce",
-        "udp://tracker.kicks-ass.net:80/announce",
         "http://tracker.kicks-ass.net/announce",
         "http://tracker.baravik.org:6970/announce",
         "http://tracker.dutchtracking.com/announce",
@@ -102,39 +99,30 @@
         "http://tracker.dutchtracking.nl/announce",
         "http://tracker2.itzmx.com:6961/announce",
         "http://tracker2.wasabii.com.tw:6969/announce",
-        "udp://tracker.sktorrent.net:6969/announce",
         "http://www.wareztorrent.com:80/announce",
-        "udp://bt.xxx-tracker.com:2710/announce",
         "udp://tracker.eddie4.nl:6969/announce",
-        "udp://tracker.grepler.com:6969/announce",
         "udp://tracker.mg64.net:2710/announce",
-        "udp://tracker.coppersurfer.tk:6969/announce",
         "http://tracker.opentrackr.org:1337/announce",
         "http://tracker.dutchtracking.nl:80/announce",
         "http://tracker.edoardocolombo.eu:6969/announce",
         "http://tracker.ex.ua:80/announce",
         "http://tracker.kicks-ass.net:80/announce",
         "http://tracker.mg64.net:6881/announce",
-        "udp://tracker.flashtorrents.org:6969/announce",
         "http://tracker.tfile.me/announce",
         "http://tracker1.wasabii.com.tw:6969/announce",
         "udp://tracker.bittor.pw:1337/announce",
         "http://tracker.tvunderground.org.ru:3218/announce",
         "http://tracker.grepler.com:6969/announce",
-        "udp://tracker.bittor.pw:1337/announce",
         "http://tracker.flashtorrents.org:6969/announce",
         "http://retracker.gorcomnet.ru/announce",
-        "udp://tracker.sktorrent.net:6969/announce",
         "udp://tracker.sktorrent.net:6969",
         "udp://public.popcorn-tracker.org:6969/announce",
         "udp://tracker.ilibr.org:80/announce",
         "udp://tracker.kuroy.me:5944/announce",
         "udp://tracker.mg64.net:6969/announce",
-        "udp://tracker.cyberia.is:6969/announce",
         "http://tracker.devil-torrents.pl:80/announce",
         "udp://tracker2.christianbro.pw:6969/announce",
         "udp://retracker.lanta-net.ru:2710/announce",
-        "udp://tracker.internetwarriors.net:1337/announce",
         "udp://ulfbrueggemann.no-ip.org:6969/announce",
         "http://torrentsmd.eu:8080/announce",
         "udp://peerfect.org:6969/announce",
@@ -143,15 +131,21 @@
         "http://torrentsmd.me:8080/announce",
         "http://agusiq-torrents.pl:6969/announce",
         "http://fxtt.ru:80/announce",
-        "udp://tracker.vanitycore.co:6969/announce",
         "udp://explodie.org:6969"
     ];
+
+    var encoded_trackers = [];
+    jQuery.each(trackers, function (i, v) {
+        encoded_trackers.push(encodeURIComponent(v));
+    });
+
     var list = jQuery('a[href^="https://www.google.com/search?q="');
     list.each(function (i, v) {
         var hash = jQuery(v).attr('href').toString().substring(jQuery(v).attr('href').indexOf('?q=') + 3, jQuery(v).attr('href').indexOf('&oq='));
         let data = "magnet:?xt=urn:btih:" + hash;
-        data = data + "&tr=" + trackers.join("&tr=");
-        jQuery(v).attr('href', data);
+        data = data + "&tr=" + encoded_trackers.join("&tr=");
+        jQuery(v).hide();
+        jQuery(v).parent('em').append('<a href="' + data + '">Click to Download (Magnet)</a>');
     });
 
 })();
