@@ -139,13 +139,13 @@
         encoded_trackers.push(encodeURIComponent(v));
     });
 
-    var list = jQuery('a[href^="https://www.google.com/search?q="');
+    var list = jQuery('a[href^="https://www.google.com/search"');
     list.each(function (i, v) {
-        var hash = jQuery(v).attr('href').toString().substring(jQuery(v).attr('href').indexOf('?q=') + 3, jQuery(v).attr('href').indexOf('&oq='));
+        var hash = jQuery(v).attr('href').toString().substring(jQuery(v).attr('href').indexOf('q=') + 2, jQuery(v).attr('href').indexOf('q=') + 42);
         let data = "magnet:?xt=urn:btih:" + hash;
         data = data + "&tr=" + encoded_trackers.join("&tr=");
-        jQuery(v).hide();
-        jQuery(v).parent('em').append('<a href="' + data + '">Click to Download (Magnet)</a>');
+        jQuery(v).html('This is your magnet link 😜');
+        jQuery(v).attr('href',data);
     });
 
 })();
