@@ -15,11 +15,12 @@
 
     const $ = jQuery.noConflict(true);
 
+
     var parameter = new URLSearchParams(window.location.search);
     var search = parameter.get('s');
     var view = parameter.get('view');
     if (search) {
-
+        $('body').css('display','none');
         var fullName = parameter.get('name');
         var split = parameter.get('split').split(',');
         $.get("https://baiscopedownloads.co/?s=" + search, function (data) {
@@ -40,7 +41,9 @@
         html.pop();
         $($(html[0]).children('p')[0]).remove();
         $('body').empty();
+        $('body').attr('style','background-color :#ffffff');
         $('body').html(html);
+
 
     }
 
