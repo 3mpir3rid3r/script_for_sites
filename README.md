@@ -2,11 +2,13 @@
 scripts for automate boring things in some web site.
 
 -----------------------Fb Received Request Remover------------------------
+
 url : https://m.facebook.com/friends/center/requests/all/
 
 open browser console, paste code and press enter
 
 -----------------------Fb Sent Request Remover----------------------------
+
 url : https://m.facebook.com/friends/center/requests/outgoing/
 
 open browser console, paste code and press enter
