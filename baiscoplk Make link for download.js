@@ -36,14 +36,12 @@
     }
 
     if (view) {
-
-        var html = $('div.entry-content.clearfix').children('*[data-blogger-escaped-data-mce-style="text-align: center;"]').toArray();
-        html.pop();
-        $($(html[0]).children('p')[0]).remove();
-        $('body').empty();
-        $('body').attr('style','background-color :#ffffff');
+        var html = $('div.entry-content.clearfix').html();
         $('body').html(html);
-
+        $('body').attr('style','background-color :#ffffff');
+        $('body').find('img[src*="wikipedia"]').parents('div:not([class])').remove();
+        $('body').find('img[src*="Capture"]').parents('div:not([class])').remove();
+        $('body').find('p[style="text-align: center;"] > span[style*="color"]').parent('p').remove();
 
     }
 
