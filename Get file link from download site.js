@@ -26,7 +26,6 @@
         var name = $('span[itemprop="name"]').html().replace(' Sinhala Subtitles', '').replace(' [සිංහල උපසිරසි]', '');
         var split = name.split('|');
         var search = split[0].replace(/\d+/g, '').replace(/[()]/g, '').trim();
-        console.log('"https://baiscopedownloads.co/?s=' + encodeURIComponent(search) + '&data=create&name=' + encodeURIComponent(name) + '&split=' + encodeURIComponent(split) + '"');
         $('<iframe src="https://baiscopedownloads.co/?s=' + encodeURIComponent(search) + '&data=create&name=' + encodeURIComponent(name) + '&split=' + encodeURIComponent(split) + '" id="downloadFrame" style="width: 100%;height:500px" ></iframe>').insertBefore("div.author-shortcodes");
     }
 
