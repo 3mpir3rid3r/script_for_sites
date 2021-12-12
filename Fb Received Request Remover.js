@@ -3,7 +3,7 @@ function scrollToBottom() {
 }
 function runProcess() {
     setTimeout(function () {
-        var elms = document.querySelectorAll('button._54k8._52jg._56bs._26vk._2b4n._8yzq._3cqr._8yo0._56bt');
+        var elms = document.querySelectorAll('button._54k8._52jg._56bs._26vk._2b4n._8yzq._3cqr._8yo0._56bt,button._54k8._52jg._56bs._26vk._56b_._5uc3._3cqr._8yo0._56bt');
 		if (elms && elms.length > 0) {
             console.error('Fetch data from page ' + elms.length);
             for (; i < elms.length; i++) {
