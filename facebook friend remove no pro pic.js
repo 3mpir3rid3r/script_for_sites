@@ -26,7 +26,7 @@ function scrollToBottom() {
 
 function runProcess() {
     setTimeout(function () {
-        var elms = document.querySelectorAll('i[style*="84688533_170842440872810_7559275468982059008_n"], i[style*="84241059_189132118950875_4138507100605120512_n"]');
+        var elms = document.querySelectorAll('i[style*="84688533_170842440872810_7559275468982059008_n"], i[style*="84241059_189132118950875_4138507100605120512_n"], i[style*="143086968_2856368904622192_1959732218791162458_n"]');
 
         if (elms && elms.length > 0) {
             console.error('Fetch data from page ' + elms.length);
