@@ -25,6 +25,10 @@
         buttonsStyling: false
     });
 
+    function uuidv4() {
+        return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+    }
+
     function viewLinks(data){
         swalWithBootstrapButtons.fire({
             text: 'Yore links is here.you can copy it.',
@@ -59,18 +63,20 @@
     function getFoldersLinks(){
         var links='';
         var count=0;
-        var list=$('div[folder_id][folder_id!="-1"]');
+        var list=$('div.folder');
         $.each(list,function () {
-            $.post("https://www.seedr.cc/content.php?action=create_empty_archive", {
-                folder_id: 4565362,
-                archive_arr:'[{"type":"folder","id":'+$(this).attr('folder_id').toString()+'}]'
+            $.ajax({
+                type: 'PUT',
+                url: "https://www.seedr.cc/download/archive/init/" + uuidv4(),
+                contentType: 'application/json',
+                data: "{folder_id: 4565362,archive_arr:'[{'type':'folder','id':"+$(this).attr('data-id').toString()+"}]'}",
             }).done(function (data) {
                 if ((count + 1) == list.length) {
-                    links = links + data.archive_url+'\n'
+                    links = links + data.url+'\n'
                     viewLinks(links);
                 } else {
                     count = count + 1;
-                    links = links + data.archive_url+'\n'
+                    links = links + data.url+'\n'
                 }
             });
         });
@@ -79,19 +85,17 @@
     function getFilesLinks(){
         var links='';
         var count=0;
-        var list=$('div[folder_file_id]');
-        $.each(list,function () {
-            $.post("https://www.seedr.cc/content.php?action=fetch_file", {
-                folder_file_id: $(this).attr('folder_file_id').toString()
-            }).done(function (data) {
+        var list = $('div[filesize]');
+        var url = "https://www.seedr.cc/download/file/{{file_id}}/url"
+        $.each(list, function () {
+            $.get(url.replace("{{file_id}}", $(this).attr('data-id').toString())).done(function (data) {
                 if ((count + 1) == list.length) {
-                    links = links + data.url+'\n'
+                    links = links + data.url + '\n'
                     viewLinks(links);
                 } else {
                     count = count + 1;
-                    links = links + data.url+'\n'
+                    links = links + data.url + '\n'
                 }
-
             });
         });
     }
@@ -104,6 +108,7 @@
             cancelButtonText: 'For All Files',
             focusConfirm: false
         }).then((result) => {
+            debugger
             if (result.isConfirmed) {
                 getFoldersLinks();
             } else if (result.dismiss === Swal.DismissReason.cancel) {
